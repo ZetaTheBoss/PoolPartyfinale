@@ -1,13 +1,17 @@
-// Simula la rivelazione dei dettagli del biglietto
-document.addEventListener('DOMContentLoaded', function () {
-    const orario = '15:30'; // Puoi personalizzare con valori dinamici
-    const giorno = 'Sabato 14 Settembre'; // Puoi personalizzare con valori dinamici
+document.getElementById('download-ticket').addEventListener('click', function() {
+    const nome = new URLSearchParams(window.location.search).get('nome');
+    const cognome = new URLSearchParams(window.location.search).get('cognome');
+    const email = new URLSearchParams(window.location.search).get('email');
+    const telefono = new URLSearchParams(window.location.search).get('telefono');
+    const preferenze = new URLSearchParams(window.location.search).get('preferenze');
 
-    document.getElementById('orario').textContent = orario;
-    document.getElementById('giorno').textContent = giorno;
+    const doc = new jsPDF();
+    doc.text(`Nome: ${nome}`, 10, 10);
+    doc.text(`Cognome: ${cognome}`, 10, 20);
+    doc.text(`Email: ${email}`, 10, 30);
+    doc.text(`Telefono: ${telefono}`, 10, 40);
+    doc.text(`Preferenze: ${preferenze}`, 10, 50);
+    doc.text(`Partenza: Martedì 10 settembre, ore 22:15 in Piazza Borromini`, 10, 60);
 
-    document.getElementById('download-ticket').addEventListener('click', function () {
-        alert('Il tuo biglietto è stato scaricato!');
-        // Puoi aggiungere la funzionalità di download del biglietto qui
-    });
+    doc.save('biglietto.pdf');
 });
